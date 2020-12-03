@@ -57,7 +57,6 @@ public class AdventDay2 {
 				Pair<Integer, Integer> interval = new Pair<Integer, Integer>(Integer.valueOf(intervalIndexesStrings[0]), Integer.valueOf(intervalIndexesStrings[1]));
 				passwordValidationMap.put(lineArguments[2], new PasswordValidation(interval, lineArguments[1].substring(0,1)));
 			}
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} finally {
