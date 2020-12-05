@@ -24,18 +24,15 @@ public class AdventDay4 {
 
 	private static int createPassportEntries() {
 		int invalidPassports = 0;
-		passportStrings = Arrays.asList(fileContent.replaceAll(" ", ", ")
-				.replaceAll("\n", ", ")
-				.substring(0,fileContent.length() - 2)
-				.split(", ,"));
-
+		passportStrings = Arrays.asList(fileContent.replace(" ",", ").replaceAll("(\\S)(\n)(\\S)", "$1, $3").split("\n\n"));
+		passportStrings.set(passportStrings.size() - 1, passportStrings.get(passportStrings.size() - 1).replaceAll("\n", ""));
 		ObjectMapper objectMapper = new ObjectMapper();
 		for (String unWrappedPassport : passportStrings) {
 			StringBuilder wrappedPassportBuilder = new StringBuilder();
 			wrappedPassportBuilder.append("{");
 			wrappedPassportBuilder.append(unWrappedPassport);
 			wrappedPassportBuilder.append("}");
-			String wrappedPassport = wrappedPassportBuilder.toString().replaceAll("(?<=: ?)(?![ \\{\\[])(.+?)(?=,|})", "\"$1\"");;
+			String wrappedPassport = wrappedPassportBuilder.toString().replaceAll("(?<=: ?)(?![ {\\[])(.+?)(?=,|})", "\"$1\"");
 
 			try {
 				objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
