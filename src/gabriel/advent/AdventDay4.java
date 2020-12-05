@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 public class AdventDay4 {
 
@@ -24,6 +25,7 @@ public class AdventDay4 {
 
 	private static int createPassportEntries() {
 		int invalidPassports = 0;
+		int nonBuiltPassports = 0;
 		passportStrings = Arrays.asList(fileContent.replace(" ",", ").replaceAll("(\\S)(\n)(\\S)", "$1, $3").split("\n\n"));
 		passportStrings.set(passportStrings.size() - 1, passportStrings.get(passportStrings.size() - 1).replaceAll("\n", ""));
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -41,11 +43,14 @@ public class AdventDay4 {
 				if (!passport.checkIfValid()) {
 					invalidPassports++;
 				}
+			} catch (InvalidFormatException e) {
+				invalidPassports++;
+				nonBuiltPassports++;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return passports.size() - invalidPassports;
+		return passports.size() + nonBuiltPassports - invalidPassports;
 	}
 
 	public static void fileContentToString(String filePath) {
