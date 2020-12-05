@@ -55,10 +55,8 @@ public class Passport {
 	public boolean checkIfValid() {
 		for (Field f : getClass().getDeclaredFields()) {
 			try {
-				if (f.get(this) == null) {
-					if (!f.getName().equals("countryId")) {
-						return false;
-					}
+				if (f.get(this) == null && !f.getName().equals("countryId")) {
+					return false;
 				}
 			} catch (IllegalAccessException e) {
 				return false;

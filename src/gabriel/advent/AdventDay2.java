@@ -12,12 +12,15 @@ import org.apache.commons.lang.StringUtils;
 
 public class AdventDay2 {
 
-	static Map<String, PasswordValidation> passwordValidationMap = new HashMap<>();
+	private static Map<String, PasswordValidation> passwordValidationMap = new HashMap<>();
 
-	public static void solveProblem(String filePath) {
+	public static void solveProblem(String filePath, int problemPart) {
 		populateMap(filePath);
-		//System.out.println(howManyAreValidProblem1());
-		System.out.println(howManyAreValidProblem2());
+		if (problemPart == 1) {
+			System.out.println(howManyAreValidProblem1());
+		} else {
+			System.out.println(howManyAreValidProblem2());
+		}
 	}
 
 	private static int howManyAreValidProblem1() {

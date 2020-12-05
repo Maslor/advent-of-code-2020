@@ -9,7 +9,7 @@ public class AdventDay5 {
 	private static TreeMap<Integer, String> seatIds = new TreeMap<>();
 
 	public static long solveProblem(String filePath, int problemPart) {
-		boardingPasses = Utils.getFileLines(filePath);
+		boardingPasses = Util.getFileLines(filePath);
 		populateSeatIds();
 		if(problemPart == 1) {
 			return seatIds.lastKey();

@@ -16,7 +16,7 @@ public class AdventDay4 {
 	private static List<Passport> passports = new ArrayList<>();
 
 	public static int solveProblem(String filePath) {
-		fileContent = Utils.getFileContent(filePath);
+		fileContent = Util.getFileContent(filePath);
 		return createPassportEntries();
 	}
 

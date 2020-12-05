@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Utils {
+public class Util {
 
-	private Utils() {
+	private Util() {
 		throw new IllegalStateException("Utility Class");
 	}
 
