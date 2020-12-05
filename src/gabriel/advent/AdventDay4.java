@@ -1,12 +1,9 @@
 package gabriel.advent;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +16,7 @@ public class AdventDay4 {
 	private static List<Passport> passports = new ArrayList<>();
 
 	public static int solveProblem(String filePath) {
-		fileContentToString(filePath);
+		fileContent = Utils.getFileContent(filePath);
 		return createPassportEntries();
 	}
 
@@ -51,18 +48,6 @@ public class AdventDay4 {
 			}
 		}
 		return passports.size() + nonBuiltPassports - invalidPassports;
-	}
-
-	public static void fileContentToString(String filePath) {
-		StringBuilder fileContentBuilder = new StringBuilder();
-
-		try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
-			stream.forEach(s -> fileContentBuilder.append(s).append("\n"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		fileContent = fileContentBuilder.toString();
 	}
 
 }
