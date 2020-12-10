@@ -7,8 +7,9 @@ public class AdventDay9 {
 
 	private static final int PREAMBLE_LENGTH = 25;
 
-	public static long solveProblem(String filePath, int problemPart) {
+	public static long solveProblem(String filePath) {
 		boolean wasFound = false;
+		long corruptedValue = 0;
 		List<Long> numbers = Util.getFileLines(filePath).stream().map(Long::parseLong).collect(Collectors.toList());
 
 		for (int i = PREAMBLE_LENGTH; i < numbers.size(); i++) {
@@ -24,10 +25,36 @@ public class AdventDay9 {
 				}
 			}
 			if (!wasFound) {
-				return numbers.get(i);
+				corruptedValue = numbers.get(i);
+				System.out.println(corruptedValue);
+				break;
 			}
 		}
-		return -1;
+		numbers.remove(corruptedValue);
+		long[] encryptionWeakness = findContiguousInterval(corruptedValue, numbers);
+		return encryptionWeakness[0] + encryptionWeakness[1];
+	}
+
+	private static long[] findContiguousInterval(long corruptedValue, List<Long> numbers) {
+
+		int startPosition = 0;
+		long contiguousSum;
+
+		while (startPosition < numbers.size() - 1) {
+			if (numbers.get(startPosition) < corruptedValue) {
+				int endPosition = startPosition + 1;
+				contiguousSum = numbers.get(startPosition) + numbers.get(endPosition);
+				while (contiguousSum < corruptedValue) {
+					endPosition++;
+					contiguousSum += numbers.get(endPosition);
+					if (contiguousSum == corruptedValue) {
+						return new long[]{numbers.get(startPosition), numbers.get(endPosition)};
+					}
+				}
+			}
+			startPosition++;
+		}
+		return new long[]{0,0};
 	}
 
 	private static List<Long> getPreviousNumbers(int index, List<Long> numbers) {
